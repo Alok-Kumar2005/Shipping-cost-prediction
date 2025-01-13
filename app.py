@@ -1,11 +1,9 @@
 from shipment.logger import logging
 from shipment.exception import shippingException
 import sys
+from shipment.pipeline.training_pipeline import TrainPipeline
 
-logging.info("Testing logging setup")
 
-try:
-    a = 2 + '3'
-    print(a)
-except Exception as e:
-    raise shippingException(e, sys) from e
+if __name__ == '__main__':
+    obj = TrainPipeline()
+    obj.run_pipeline()
