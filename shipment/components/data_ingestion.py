@@ -25,18 +25,15 @@ class DataIngestion:
         logger.info("Enters get_data_from_mongodb method of data Ingestion class")
         try:
             logger.info("Getting the dataframe from mongodb")
-
             df = self.mongo_op.get_collection_as_dataframe(
                 self.data_ingestion_config.DB_NAME,
                 self.data_ingestion_config.COLLECTION_NAME,
             )
-
-            logger.info('Got the dataframe from mongodb')
-            logger.info('Exicited the get_data_from_mongodb method of dataIngestionMethod')
-
+            logger.info(f"Columns in the DataFrame: {df.columns.tolist()}")
+            logger.info("Exited the get_data_from_mongodb method of DataIngestion class")
             return df
         except Exception as e:
-            raise shippingException(e , sys) from e
+            raise shippingException(e, sys) from e
 
     def split_data_as_train_test(self , df:DataFrame )-> Tuple[DataFrame , DataFrame]:
         logger.info('Enterd split_data_as_train_test method of Data_ingestion Class')
@@ -60,7 +57,7 @@ class DataIngestion:
             )
 
             test_set.to_csv(
-                self.data_ingestion_config.TEST_DATA_FILE_PATH , Index = False , header = True
+                self.data_ingestion_config.TEST_DATA_FILE_PATH , index = False , header = True
             )
 
             logger.info('Excited split_data_as_train_test method of DataIngestion class')

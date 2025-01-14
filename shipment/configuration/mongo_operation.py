@@ -22,8 +22,21 @@ class MongoDBOperation:
             raise shippingException(e , sys) from e
         
     @staticmethod
-    def get_collection(self , db_name , collection_name)->DataFrame:
-        logging.info(f"Getting the collection {collection_name}")
+    def get_collection( database , collection_name)->Collection:
+        logging.info(f"Getting the get_collection of MongoDBOperation class")
+        try:
+            collection = database[collection_name]
+            logging.info('Excited get_collection from MongoDB_Operation class')
+            return collection
+        
+        except Exception as e:
+            raise shippingException(e , sys) from e
+        
+
+    
+    def get_collection_as_dataframe(self , db_name , collection_name)-> DataFrame:
+        logging.info('Entered get_collection_as_dataframe of MongoDB_Operation class')
+
         try:
             database = self.get_database(db_name)
             collection = database.get_collection(collection_name)
@@ -36,6 +49,7 @@ class MongoDBOperation:
             return df
         except Exception as e:
             raise shippingException(e , sys) from e
+
         
     def insert_dataframe_as_record(self , data_frame , db_name , collection_name)-> None:
         logging.info(f"Inserting the dataframe as record in collection {collection_name}")
